@@ -83,7 +83,7 @@ with tf.device(DEVICE):
         keras.layers.GlobalAveragePooling2D(name='avg_pool'),
         keras.layers.Activation("sigmoid")
     ])
-    model.load_weights(str(Path(__file__).parent/'weights.27-1.3988.h5'))
+    model.load_weights(str(Path(__file__).parent/'weights.218-1.6841.h5'))
 
 
 @tf.function
