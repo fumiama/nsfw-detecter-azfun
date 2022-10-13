@@ -3,12 +3,12 @@ import azure.functions as func
 from typing import IO
 from io import BytesIO
 import aiohttp
-
+from pathlib import Path
 from json import dumps
 
 from .evaluate import load, evaluate_image
 
-model, tags = load("tag/deepdanbooru-v3-20211112-sgd-e28")
+model, tags = load(str(Path(__file__).parent/"deepdanbooru-v3-20211112-sgd-e28"))
 
 async def download_from_url(url: str) -> IO:
     try:
