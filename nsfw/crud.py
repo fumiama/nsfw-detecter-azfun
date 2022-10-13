@@ -7,31 +7,26 @@ from tensorflow import keras
 import numpy as np
 import aiohttp
 
-try:
-    from PIL import ImageEnhance
-    from PIL import Image as pil_image
-except ImportError:
-    pil_image = None
-    ImageEnhance = None
+from PIL import Image as pil_image
 
 from .nsfw_detector import predict
 
 IMAGE_DIM = 224
 
-if pil_image is not None:
-    _PIL_INTERPOLATION_METHODS = {
-        'nearest': pil_image.NEAREST,
-        'bilinear': pil_image.BILINEAR,
-        'bicubic': pil_image.BICUBIC,
-    }
-    # These methods were only introduced in version 3.4.0 (2016).
-    if hasattr(pil_image, 'HAMMING'):
-        _PIL_INTERPOLATION_METHODS['hamming'] = pil_image.HAMMING
-    if hasattr(pil_image, 'BOX'):
-        _PIL_INTERPOLATION_METHODS['box'] = pil_image.BOX
-    # This method is new in version 1.1.3 (2013).
-    if hasattr(pil_image, 'LANCZOS'):
-        _PIL_INTERPOLATION_METHODS['lanczos'] = pil_image.LANCZOS
+_PIL_INTERPOLATION_METHODS = {
+    'nearest': pil_image.NEAREST,
+    'bilinear': pil_image.BILINEAR,
+    'bicubic': pil_image.BICUBIC,
+}
+# These methods were only introduced in version 3.4.0 (2016).
+if hasattr(pil_image, 'HAMMING'):
+    _PIL_INTERPOLATION_METHODS['hamming'] = pil_image.HAMMING
+if hasattr(pil_image, 'BOX'):
+    _PIL_INTERPOLATION_METHODS['box'] = pil_image.BOX
+# This method is new in version 1.1.3 (2013).
+if hasattr(pil_image, 'LANCZOS'):
+    _PIL_INTERPOLATION_METHODS['lanczos'] = pil_image.LANCZOS
+
 model = predict.load_model(str(Path(__file__).parent/'nsfw_mobilenet2.224x224.h5'))
 
 
@@ -66,9 +61,6 @@ def load_img(file: IO, grayscale=False, color_mode='rgb', target_size=None,
         warnings.warn('grayscale is deprecated. Please use '
                       'color_mode = "grayscale"')
         color_mode = 'grayscale'
-    if pil_image is None:
-        raise ImportError('Could not import PIL.Image. '
-                          'The use of `load_img` requires PIL.')
     img = pil_image.open(file)
     if color_mode == 'grayscale':
         # if image is not already an 8-bit, 16-bit or 32-bit grayscale image

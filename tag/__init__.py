@@ -28,7 +28,7 @@ async def main(req: func.HttpRequest) -> func.HttpResponse:
                 "400 BAD REQUEST: please specify an url to analyze",
                 status_code=400
             )
-        data = await download_from_url(url)
+        data = (await download_from_url(url)).getvalue()
     limit = req.params.get('limit')
     if not limit or len(limit) == 0: limit = 0.7
     else:

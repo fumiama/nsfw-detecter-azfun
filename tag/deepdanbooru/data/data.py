@@ -1,6 +1,5 @@
-from typing import Any, Union
+from typing import Any
 
-import six
 import tensorflow as tf
 import tensorflow_io as tfio
 
@@ -12,12 +11,8 @@ def load_tags(tags_path):
         return tags
 
 def load_image_for_evaluate(
-    input_: Union[str, six.BytesIO], width: int, height: int, normalize: bool = True
+    image_raw: bytes, width: int, height: int, normalize: bool = True
 ) -> Any:
-    if isinstance(input_, six.BytesIO):
-        image_raw = input_.getvalue()
-    else:
-        image_raw = tf.io.read_file(input_)
     try:
         image = tf.io.decode_png(image_raw, channels=3)
     except:
