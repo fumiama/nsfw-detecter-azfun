@@ -1,8 +1,5 @@
-import os
 from typing import Any, List, Dict
-import tensorflow as tf
 
-from .project import load_model_from_project, load_tags_from_project
 from .data import load_image_for_evaluate
 
 def evaluate_image(
@@ -26,16 +23,3 @@ def evaluate_image(
     del y
 
     return result_dict
-
-# return model, tags
-def load(project_path):
-    os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-
-    if not project_path:
-        raise Exception("You must provide project path or model path.")
-
-    model = load_model_from_project(project_path, compile_model=False)
-
-    tags = load_tags_from_project(project_path)
-
-    return model, tags

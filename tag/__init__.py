@@ -6,9 +6,10 @@ import aiohttp
 from pathlib import Path
 from json import dumps
 
-from .evaluate import load, evaluate_image
+from .evaluate import evaluate_image
+from .project import load_model_and_tags_from_project
 
-model, tags = load(str(Path(__file__).parent/"deepdanbooru-v4-20200814-sgd-e30"))
+model, tags = load_model_and_tags_from_project(str(Path(__file__).parent/"deepdanbooru-v4-20200814-sgd-e30"))
 
 async def download_from_url(url: str) -> IO:
     try:
