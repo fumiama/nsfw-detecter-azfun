@@ -12,7 +12,7 @@ async def main(req: func.HttpRequest) -> func.HttpResponse:
         url = req.params.get('url')
         if not url or len(url) == 0: url = req.params.get('pic')
         if not url or len(url) == 0: return func.HttpResponse(
-                "400 BAD REQUEST: please specyfy an url to analyze",
+                "400 BAD REQUEST: please specify an url to analyze",
                 status_code=400
             )
         data: List[IO] = await asyncio.gather(asyncio.create_task(download_from_url(url)))
