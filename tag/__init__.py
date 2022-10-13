@@ -8,7 +8,7 @@ from json import dumps
 
 from .evaluate import load, evaluate_image
 
-model, tags = load(str(Path(__file__).parent/"deepdanbooru-v3-20211112-sgd-e28"))
+model, tags = load(str(Path(__file__).parent/"deepdanbooru-v4-20200814-sgd-e30"))
 
 async def download_from_url(url: str) -> IO:
     try:

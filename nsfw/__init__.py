@@ -2,6 +2,7 @@ import azure.functions as func
 
 from typing import List, IO
 import asyncio
+from json import dumps
 
 from .crud import classify, model, download_from_url
 
@@ -26,4 +27,4 @@ async def main(req: func.HttpRequest) -> func.HttpResponse:
              "400 BAD REQUEST: size is not a int number",
              status_code=400
         )
-    return func.HttpResponse(str(classify(model, data, size)))
+    return func.HttpResponse(dumps(classify(model, data, size)))

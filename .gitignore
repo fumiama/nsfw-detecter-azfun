@@ -138,4 +138,4 @@ __azurite_db*__.json
 .DS_Store
 tag/weights.27-1.3988.h5
 nsfw/nsfw_mobilenet2.224x224.h5
-tag/deepdanbooru-v3-20211112-sgd-e28
+tag/deepdanbooru-v4-20200814-sgd-e30
