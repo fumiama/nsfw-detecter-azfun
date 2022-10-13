@@ -33,7 +33,7 @@ def load(project_path):
     if not project_path:
         raise Exception("You must provide project path or model path.")
 
-    model = load_model_from_project(project_path, compile_model=False)
+    model = load_model_from_project(project_path)
 
     tags = load_tags_from_project(project_path)
 
