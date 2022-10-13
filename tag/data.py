@@ -3,7 +3,7 @@ from typing import Any
 import tensorflow as tf
 import tensorflow_io as tfio
 
-from ..image import transform_and_pad_image
+from .image import transform_and_pad_image
 
 def load_tags(tags_path):
     with open(tags_path, "r") as tags_stream:

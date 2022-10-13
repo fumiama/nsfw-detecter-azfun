@@ -1,8 +1,8 @@
 import os
 import tensorflow as tf
 
-from ..io import deserialize_from_json
-from ..data import load_tags
+from .io import deserialize_from_json
+from .data import load_tags
 
 
 def load_model_from_project(project_path, compile_model=True):

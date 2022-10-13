@@ -2,8 +2,8 @@ import os
 from typing import Any, List, Dict
 import tensorflow as tf
 
-from .deepdanbooru.project import load_model_from_project, load_tags_from_project
-from .deepdanbooru.data import load_image_for_evaluate
+from .project import load_model_from_project, load_tags_from_project
+from .data import load_image_for_evaluate
 
 physical_devices = tf.config.list_physical_devices('CPU')
 try:
