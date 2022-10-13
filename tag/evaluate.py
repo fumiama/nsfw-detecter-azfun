@@ -5,13 +5,6 @@ import tensorflow as tf
 from .project import load_model_from_project, load_tags_from_project
 from .data import load_image_for_evaluate
 
-physical_devices = tf.config.list_physical_devices('CPU')
-try:
-    tf.config.experimental.set_memory_growth(physical_devices[0], True)
-except:
-    # Invalid device or cannot modify virtual devices once initialized.
-    pass
-
 def evaluate_image(
     image_input: bytes, model: Any, tags: List[str], threshold: float
 ) -> Dict[str, float]:
@@ -41,7 +34,7 @@ def load(project_path):
     if not project_path:
         raise Exception("You must provide project path or model path.")
 
-    model = load_model_from_project(project_path)
+    model = load_model_from_project(project_path, compile_model=False)
 
     tags = load_tags_from_project(project_path)
 
