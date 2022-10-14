@@ -6,15 +6,16 @@ from .data import load_image_for_evaluate
 def evaluate_image(
     image_input: bytes, model: Any, tags: List[str], threshold: float
 ) -> Dict[str, float]:
-    d = model.get_input_details()[0]
-    image = load_image_for_evaluate(image_input, width=d['shape'][1], height=d['shape'][2])
-    del d
+    width = model.input_shape[2]
+    height = model.input_shape[1]
+
+    image = load_image_for_evaluate(image_input, width=width, height=height)
 
     image_shape = image.shape
     image = image.reshape((1, image_shape[0], image_shape[1], image_shape[2]))
     del image_shape
 
-    y = model.get_signature_runner()(input_1=image)['activation_142'][0]
+    y = model.predict(image)[0]
     del image
 
     result_dict = {}

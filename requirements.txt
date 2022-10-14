@@ -8,5 +8,6 @@ aiohttp
 numpy
 scikit-image
 Pillow
-tensorflow==2.7.4
+tensorflow==2.9.2
 tensorflow_hub
+tensorflow_io
