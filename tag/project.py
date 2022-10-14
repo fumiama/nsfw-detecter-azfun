@@ -1,21 +1,12 @@
 import os
 import tensorflow as tf
 
-from .io import deserialize_from_json
 from .data import load_tags
 
 
 def load_model_and_tags_from_project(project_path):
-    project_context_path = os.path.join(project_path, "project.json")
-    project_context = deserialize_from_json(project_context_path)
-
-    model_type = project_context["model"]
-    model_path = os.path.join(project_path, f"model-{model_type}.h5")
-
+    model_path = os.path.join(project_path, "model-resnet_custom_v4.tflite")
     tags_path = os.path.join(project_path, "tags.txt")
     tags = load_tags(tags_path)
-
-    with tf.device("/CPU:0"):
-        model =  tf.keras.models.load_model(model_path, compile=True)
-
+    model = tf.lite.Interpreter(model_path)
     return model, tags
