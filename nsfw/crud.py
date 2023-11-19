@@ -1,13 +1,13 @@
 from typing import Union, List, Tuple, Sequence, Dict, IO
 import warnings
-import io
 from pathlib import Path
 
 from tensorflow import keras
 import numpy as np
-import aiohttp
 
 from PIL import Image as pil_image
+
+import logging
 
 from .nsfw_detector import predict
 
@@ -112,13 +112,13 @@ def load_images(image_files: Union[IO, List[IO]],
     for img_path in image_files:
         try:
             if verbose:
-                print(img_path, "size:", image_size)
+                logging.info(str(img_path) + ", size: " + str(image_size))
             image = load_img(img_path, target_size=image_size)
             image = keras.preprocessing.image.img_to_array(image)
             image /= 255
             loaded_images.append(image)
         except Exception as ex:
-            print("Image Load Failure: ", img_path, ex)
+            logging.error("Image Load Failure: " + str(img_path) + " " + str(ex))
 
     return np.asarray(loaded_images)
 
@@ -130,12 +130,3 @@ def classify(model,
     images = load_images(input_files, (image_dim, image_dim))
     probs = predict.classify_nd(model, images)
     return probs
-
-
-async def download_from_url(url: str) -> IO:
-    try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as resp:
-                return io.BytesIO(await resp.read())
-    except aiohttp.ClientError as e:
-        print(e)

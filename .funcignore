@@ -2,3 +2,9 @@
 .vscode
 local.settings.json
 test
+.venv
+.DS_Store
+
+tag/conv.py
+tag/model-resnet_custom_v3.h5
+tag/test.jpeg

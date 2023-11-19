@@ -136,6 +136,8 @@ __azurite_db*__.json
 
 .vscode
 .DS_Store
-tag/weights.27-1.3988.h5
 nsfw/nsfw_mobilenet2.224x224.h5
-tag/deepdanbooru-v4-20200814-sgd-e30
+tag/tags.txt
+tag/model-resnet_custom_v3.h5
+.gitignore
+tag/tagv3.tflite

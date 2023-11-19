@@ -1,22 +1,15 @@
 import azure.functions as func
 
-from typing import List, IO
-import asyncio
 from json import dumps
 
-from .crud import classify, model, download_from_url
+from tools import get_data
+
+from .crud import classify, model
+
 
 async def main(req: func.HttpRequest) -> func.HttpResponse:
-    if req.method == "POST":
-        data = req.get_body()
-    else:
-        url = req.params.get('url')
-        if not url or len(url) == 0: url = req.params.get('pic')
-        if not url or len(url) == 0: return func.HttpResponse(
-                "400 BAD REQUEST: please specify an url to analyze",
-                status_code=400
-            )
-        data: List[IO] = await asyncio.gather(asyncio.create_task(download_from_url(url)))
+    data = await get_data(req)
+    if isinstance(data, func.HttpResponse): return data
     size = req.params.get('size')
     if not size or len(size) == 0: size = 224
     else:

@@ -10,6 +10,8 @@ import tensorflow as tf
 from tensorflow import keras
 import tensorflow_hub as hub
 
+import logging
+
 IMAGE_DIM = 224  # required/default image dimensionality
 
 
@@ -40,14 +42,14 @@ def load_images(image_paths: Union[str, List[str]],
     for img_path in image_paths:
         try:
             if verbose:
-                print(img_path, "size:", image_size)
+                logging.info(str(img_path) + ", size: " + str(image_size))
             image = keras.preprocessing.image.load_img(img_path, target_size=image_size)
             image = keras.preprocessing.image.img_to_array(image)
             image /= 255
             loaded_images.append(image)
             loaded_image_paths.append(img_path)
         except Exception as ex:
-            print("Image Load Failure: ", img_path, ex)
+            logging.error("Image Load Failure: " + str(img_path) + " " + str(ex))
 
     return np.asarray(loaded_images), loaded_image_paths
 
